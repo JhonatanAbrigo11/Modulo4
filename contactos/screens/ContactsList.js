@@ -15,16 +15,15 @@ export const ContactsList=()=>{
           </ListItem>)
         }
 
-       const fnRefrshList= (contacts)=>{
+        const fnRefrshList= (contacts)=>{
           setContactsList(contacts);
-
         }
         return (<View>
             <Text>LISTA DE CONTACTOS</Text>
             <Button
                 title='Consulta'
                 onPress={()=>{
-                    getAllContacts(fnRefrshList);
+                   getAllContacts(fnRefrshList);
                 }}
             />
             <FlatList
