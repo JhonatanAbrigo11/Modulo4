@@ -2,8 +2,9 @@ import {View,Text,StyleSheet,FlatList} from 'react-native'
 import {Button} from '@rneui/base'
 import {getAllContacts} from '../rest_client/contactos'
 import { useState } from 'react'
-import { ListItem } from '@rneui/themed';
-export const ContactsList=()=>{
+import { ListItem,FAB } from '@rneui/themed';
+
+export const ContactsList=({navigation})=>{
         const [contactsList,setContactsList]= useState([{}]);
 
         const ContactItem=({contact})=>{
@@ -18,7 +19,7 @@ export const ContactsList=()=>{
         const fnRefrshList= (contacts)=>{
           setContactsList(contacts);
         }
-        return (<View>
+        return (<View style={styles.container}>
             <Text>LISTA DE CONTACTOS</Text>
             <Button
                 title='Consulta'
@@ -32,6 +33,10 @@ export const ContactsList=()=>{
                return (<ContactItem contact={item}/>)
               }}
             />
+            <FAB
+              title='+'
+              onPress={()=>{navigation.navigate('ContactsFormsNav')}}
+            />
         </View>)
 }
 
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
   },
 });

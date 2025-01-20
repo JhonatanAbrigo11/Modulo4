@@ -3,6 +3,11 @@ const bodyParser= require("body-parser")
 const app= express ();  
 const puerto = 3001
 // contacto : id ,nombre,apellido,celular
+const contactos=[
+    {id:1,nombre:"Jhonatan", apellido:"Abrigo", celular:"0990681131"},
+    {id:2,nombre:"Juan", apellido:"Diego", celular:"0990681132"},
+    {id:3,nombre:"Maria", apellido:"Con", celular:"0990681133"}
+];
 app.use(bodyParser.json())
 app.use("/contactos",(request,response,next)=>{
     console.log("ingresa a funcion midlleware")
@@ -13,11 +18,6 @@ app.use("/contactos",(request,response,next)=>{
 
 
 app.get("/contactos",(request,response)=>{
-    const contactos=[
-        {id:1,nombre:"Jhonatan", apellido:"Abrigo", celular:"0990681131"},
-        {id:2,nombre:"Juan", apellido:"Diego", celular:"0990681132"},
-        {id:3,nombre:"Maria", apellido:"Con", celular:"0990681133"}
-    ];
     console.log("Ingresa a Get")
     response.send(contactos);
 });
