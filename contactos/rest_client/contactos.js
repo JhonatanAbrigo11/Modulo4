@@ -30,7 +30,7 @@ export const saveContactRest=(contact,fnShowMessage)=>{
     fetch(URL+"contactos",config)
     .then(response=>response.json())
     .then(body=>{
-        fnShowMessage();
+        fnShowMessage('CONTACTO CREADO');
         console.log(body)})
 }
 
@@ -50,6 +50,17 @@ export const updateContactRest=(contact,fnShowMessage)=>{
     fetch(URL+"contactos/" +contact.id,config)
     .then(response=>response.json())
     .then(body=>{
-        fnShowMessage();
+        fnShowMessage('CONTACTO ACTUALIZADO');
+        console.log(body)})
+}
+
+export const deleteContactRest=(contact,fnShowMessage)=>{
+    const config={
+        method: 'DELETE'
+    }
+    fetch(URL+"contactos/" +contact.id,config)
+    .then(response=>response.json())
+    .then(body=>{
+        fnShowMessage('CONTACTO ELIMINADO');
         console.log(body)})
 }

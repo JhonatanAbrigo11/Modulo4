@@ -67,7 +67,7 @@ app.put("/laptos/:idParam",(request,response)=>{
 app.delete("/laptos/:id",(request,response)=>{
     const id= request.params.id;
     console.log("id: ",id)
-    response.send()
+    response.send({id:id})
 })
 app.listen(puerto,()=>{
     console.log("Servidor listo en el cuarto "+puerto)

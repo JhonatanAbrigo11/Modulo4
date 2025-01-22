@@ -32,7 +32,7 @@ export const createLaptop=(lapto,fnShowMessage)=>{
     fetch(URL+"laptos",config)
     .then(response=>response.json())
     .then(body=>{console.log(body)
-        fnShowMessage();
+        fnShowMessage('LAPTOP CREADA');
     })
 }
 
@@ -53,6 +53,17 @@ export const updateLaptopRest=(lapto,fnShowMessage)=>{
     fetch(URL+"laptos/"+lapto.id,config)
     .then(response=>response.json())
     .then(body=>{console.log(body)
-        fnShowMessage();
+        fnShowMessage('LAPTOP ACTUALIZADA');
+    })
+}
+
+export const deleteLaptopRest=(lapto,fnShowMessage)=>{
+    const config={
+        method:'DELETE',
+    }
+    fetch(URL+"laptos/"+lapto.id,config)
+    .then(response=>response.json())
+    .then(body=>{console.log(body)
+        fnShowMessage('CONTACTO ELIMINADO');
     })
 }
