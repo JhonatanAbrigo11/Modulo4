@@ -1,19 +1,25 @@
-import {View,Text,StyleSheet,FlatList} from 'react-native'
+import {View,Text,StyleSheet,FlatList,TouchableHighlight} from 'react-native'
 import {Button} from '@rneui/base'
 import {getAllContacts} from '../rest_client/contactos'
 import { useState } from 'react'
 import { ListItem,FAB } from '@rneui/themed';
 
 export const ContactsList=({navigation})=>{
+  
         const [contactsList,setContactsList]= useState([{}]);
 
         const ContactItem=({contact})=>{
-          return (<ListItem>
+          return (
+          <TouchableHighlight onPress={()=>{
+            navigation.navigate('ContactsFormsNav',{contactParam:contact});
+          }}>
+          <ListItem>
             <ListItem.Content>
-              <ListItem.Title>{contact.nombre} {contact.apellido}</ListItem.Title>
-              <ListItem.Subtitle>{contact.celular}</ListItem.Subtitle>
+                <ListItem.Title>{contact.nombre} {contact.apellido}</ListItem.Title>
+                <ListItem.Subtitle>{contact.celular}</ListItem.Subtitle>
             </ListItem.Content>
-          </ListItem>)
+          </ListItem>
+          </TouchableHighlight>)
         }
 
         const fnRefrshList= (contacts)=>{
@@ -35,7 +41,7 @@ export const ContactsList=({navigation})=>{
             />
             <FAB
               title='+'
-              onPress={()=>{navigation.navigate('ContactsFormsNav')}}
+              onPress={()=>{navigation.navigate('ContactsFormsNav',{})}}
             />
         </View>)
 }

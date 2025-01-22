@@ -1,21 +1,28 @@
 import { StyleSheet, Text, View,Alert } from 'react-native';
 import { Input,Button} from '@rneui/base';
 import {  useState } from 'react';
-import { createLaptop } from '../restLaptop/laptos';
-export const LaptosForms=({navigation})=>{
+import { createLaptop,updateLaptopRest } from '../restLaptop/laptos';
+export const LaptosForms=({navigation,route})=>{
 
-    const [brand, setBrand]= useState();
-    const [processor,setProcessor]= useState();
-    const [memory,setMemory]= useState();
-    const [disk,setDisk]= useState();
+    let laptoRetrieve= route.params.laptoParam;
+
+    let isNew= true;
+
+    if(laptoRetrieve!=null){
+        isNew=false;
+    }
+    const [brand, setBrand]= useState(isNew?null: laptoRetrieve.marca);
+    const [processor,setProcessor]= useState(isNew?null: laptoRetrieve.precesador);
+    const [memory,setMemory]= useState(isNew?null:laptoRetrieve.memoria);
+    const [disk,setDisk]= useState(isNew?null: laptoRetrieve.disco);
 
 
     const showMessage=()=>{
-        Alert.alert('CONFIRMACIÓN', 'SE HA CREADO CORRECTAMENTE')
+        Alert.alert('CONFIRMACIÓN', isNew?'LAPTO CREADA':'LAPTO ACRUALIZADA')
+        navigation.goBack();
     }
 
-    const saveLapto=()=>{
-        navigation.goBack();
+    const createLapto=()=>{
         createLaptop({
             brand: brand,
             processor: processor,
@@ -25,6 +32,19 @@ export const LaptosForms=({navigation})=>{
         showMessage
     )
     }
+
+    const updateLaptop=()=>{
+        updateLaptopRest({
+            id: laptoRetrieve.id,
+            brand: brand,
+            processor: processor,
+            memory: memory,
+            disk: disk
+        },
+        showMessage
+    )
+    }
+
 
     
 
@@ -60,7 +80,7 @@ export const LaptosForms=({navigation})=>{
         />
         <Button
             title='GUARDAR'
-            onPress={saveLapto}
+            onPress={isNew?createLapto:updateLaptop}
         />
 
     </View>)

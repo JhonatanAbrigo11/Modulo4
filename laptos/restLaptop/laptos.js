@@ -35,3 +35,24 @@ export const createLaptop=(lapto,fnShowMessage)=>{
         fnShowMessage();
     })
 }
+
+export const updateLaptopRest=(lapto,fnShowMessage)=>{
+    const config={
+        method:'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            id: lapto.id,
+            marca: lapto.brand,
+            procesador: lapto.processor,
+            memoria: lapto.memory,
+            disco: lapto.disk
+        })
+    }
+    fetch(URL+"laptos/"+lapto.id,config)
+    .then(response=>response.json())
+    .then(body=>{console.log(body)
+        fnShowMessage();
+    })
+}

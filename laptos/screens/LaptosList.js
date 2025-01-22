@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,FlatList } from 'react-native';
+import { StyleSheet, Text, View,FlatList,TouchableHighlight } from 'react-native';
 import {Button} from '@rneui/base'
 import { useState } from 'react';
 import { ListItem,FAB } from '@rneui/themed';
@@ -9,12 +9,17 @@ export const LaptosList=({navigation})=>{
     const [laptosList, setLaptosList] = useState([{}])
 
     const LaptoItem=({lapto})=>{
-        return (<ListItem>
+        return (
+          <TouchableHighlight onPress={()=>{
+            navigation.navigate("LaptosFormstNav",{laptoParam: lapto})
+          }}>
+        <ListItem>
             <ListItem.Content>
               <ListItem.Title>{lapto.marca}</ListItem.Title>
               <ListItem.Subtitle>{lapto.memoria} {lapto.disco}</ListItem.Subtitle>
             </ListItem.Content>
-          </ListItem>)
+          </ListItem>
+          </TouchableHighlight>)
     }
 
     const refreshList=(lapto)=>{
@@ -35,7 +40,7 @@ export const LaptosList=({navigation})=>{
         />
         <FAB 
           title='+'
-          onPress={()=>{navigation.navigate("LaptosFormstNav")}}
+          onPress={()=>{navigation.navigate("LaptosFormstNav",{})}}
         />
        
     </View>)

@@ -2,17 +2,29 @@ import {View,Text,StyleSheet,Alert} from 'react-native'
 import {Input, Button} from '@rneui/base'
 import { useState } from 'react'
 import {saveContactRest} from '../rest_client/contactos'
+import { updateContactRest } from '../rest_client/contactos'
+export const ContactsForms= ({navigation,route})=>{
+    let contactRetrieved= route.params.contactParam 
+    let isNew= true;
+    if(contactRetrieved!=null){
+        isNew=false;
+    }
+    console.log('isNew', isNew)
+    console.log(contactRetrieved)
 
-export const ContactsForms= ({navigation})=>{
-    const [name, setName] = useState();
-    const [surname, setSurname] = useState();
-    const [phoneNumber, setPhoneNumber] = useState();
+    const [name, setName] = useState(isNew?null:contactRetrieved.nombre);
+    const [surname, setSurname] = useState(isNew?null:contactRetrieved.apellido);
+    const [phoneNumber, setPhoneNumber] = useState(isNew?null: contactRetrieved.celular);
+
+
+    
 
     const showMessage=()=>{
-        Alert.alert('CONFIRMACIÓN','CONTACTO CREADO')
-    }
-    const saveContact=()=>{
+        Alert.alert('CONFIRMACIÓN',isNew?'CONTACTO CREADO':'CONTACTO ACTUALIZADO')
         navigation.goBack();
+    }
+    const createContact=()=>{
+        
         saveContactRest({
             name: name,
             surname: surname,
@@ -20,6 +32,19 @@ export const ContactsForms= ({navigation})=>{
         },
         showMessage
         );
+    }
+
+    const updateContact=()=>{
+        console.log('actualizando contacto')
+        updateContactRest({
+            id: contactRetrieved.id,
+            name: name,
+            surname: surname,
+            phoneNumber: phoneNumber
+
+        },
+        showMessage);    
+
     }
     return (<View style={styles.container}>
         <Input
@@ -49,7 +74,7 @@ export const ContactsForms= ({navigation})=>{
 
         <Button
             title='GUARDAR'
-            onPress={saveContact}
+            onPress={isNew?createContact:updateContact}
         />
 
     </View>)
