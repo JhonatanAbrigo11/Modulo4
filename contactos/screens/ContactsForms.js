@@ -6,8 +6,7 @@ import { updateContactRest,deleteContactRest } from '../rest_client/contactos'
 
 
 export const ContactsForms= ({navigation,route})=>{
-
-    let contactRetrieved= route.params.contactParam 
+    let contactRetrieved= route.params.contactParam
     let isNew= true;
     if(contactRetrieved!=null){
         isNew=false;
@@ -26,6 +25,7 @@ export const ContactsForms= ({navigation,route})=>{
         Alert.alert('CONFIRMACIÓN',message)
         navigation.goBack();
     }
+
     const createContact=()=>{
         
         saveContactRest({
@@ -33,14 +33,15 @@ export const ContactsForms= ({navigation,route})=>{
             surname: surname,
             phoneNumber: phoneNumber
         },
-        showMessage
+        showMessage,
+        
         );
     }
 
     const updateContact=()=>{
         console.log('actualizando contacto')
         updateContactRest({
-            id: contactRetrieved.id,
+            id: contactRetrieved.id_contactos,
             name: name,
             surname: surname,
             phoneNumber: phoneNumber
@@ -62,7 +63,7 @@ export const ContactsForms= ({navigation,route})=>{
     }
     const deleteContact=()=>{
         deleteContactRest({
-            id:contactRetrieved.id
+            id:contactRetrieved.id_contactos
         },showMessage)
     }
     return (<View style={styles.container}>

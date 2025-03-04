@@ -14,7 +14,6 @@ export const getAllContacts=(fnRefreshList)=>{
     )
 }
 
-
 export const saveContactRest=(contact,fnShowMessage)=>{
     const config={
         method: 'POST',
@@ -27,11 +26,16 @@ export const saveContactRest=(contact,fnShowMessage)=>{
             celular: contact.phoneNumber
         })
     }
-    fetch(URL+"contactos",config)
-    .then(response=>response.json())
-    .then(body=>{
+    fetch(URL + "contactos", config)
+    .then(response => response.json())
+    .then(body => {
         fnShowMessage('CONTACTO CREADO');
-        console.log(body)})
+       
+    })
+    .catch(error => {
+        fnShowMessage("Error al crear el contacto");
+    });
+    
 }
 
 export const updateContactRest=(contact,fnShowMessage)=>{
@@ -51,6 +55,7 @@ export const updateContactRest=(contact,fnShowMessage)=>{
     .then(response=>response.json())
     .then(body=>{
         fnShowMessage('CONTACTO ACTUALIZADO');
+        
         console.log(body)})
 }
 
@@ -58,9 +63,11 @@ export const deleteContactRest=(contact,fnShowMessage)=>{
     const config={
         method: 'DELETE'
     }
-    fetch(URL+"contactos/" +contact.id,config)
+    fetch(URL+"contactos/"+contact.id,config)
     .then(response=>response.json())
     .then(body=>{
         fnShowMessage('CONTACTO ELIMINADO');
+        
         console.log(body)})
+     
 }
