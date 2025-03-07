@@ -27,7 +27,9 @@ export const ContactsList=({navigation})=>{
         }
 
         const fnRefrshList= (contacts)=>{
+          console.log("Actualizando lista con:", celular);
           setContactsList(contacts);
+          console.log("Nuevo estado:", celularesList);
         }
         return (<View style={styles.container}>
             <FlatList
